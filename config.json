@@ -1,0 +1,6 @@
+{
+    "db1_llm": "mysql+pymysql://root:1234@localhost:3306/db1_llm",
+    "db2_llm": "postgresql+psycopg2://postgres:1234@localhost:5432/db2_llm",
+    "db3_llm": "oracle+oracledb://C##user:dummy123@localhost:1521/XE",
+    "db4_llm": "mssql+pyodbc://user1:1234@RHEI\\SQLEXPRESS/db4_llm?driver=ODBC+Driver+17+for+SQL+Server"
+}

@@ -1,0 +1,30 @@
+{
+    "db1_llm": {
+        "db_type": "mysql",
+        "tables": {
+            "pegawai_kominfo": ["id_pegawai", "nama_pegawai", "jabatan", "divisi", "email"],
+            "proyek_kominfo": ["id_proyek", "nama_proyek", "anggaran", "status_proyek"]
+        }
+    },
+    "db2_llm": {
+        "db_type": "postgresql",
+        "tables": {
+            "pelanggan_kominfo": ["id_pelanggan", "nama_pelanggan", "total_pembayaran"],
+            "layanan_kominfo": ["id_layanan", "nama_layanan", "deskripsi"]
+        }
+    },
+    "db3_llm": {
+        "db_type": "oracle",
+        "tables": {
+            "karyawan_kominfo": ["id_karyawan", "nama_karyawan", "jabatan", "departemen"],
+            "kegiatan_kominfo": ["id_kegiatan", "nama_kegiatan", "tanggal_mulai", "tanggal_selesai"]
+        }
+    },
+    "db4_llm": {
+        "db_type": "sqlserver",
+        "tables": {
+            "siswa_kominfo": ["id_siswa", "nama_siswa", "program_pelatihan", "nilai_ujian"],
+            "guru_kominfo": ["id_guru", "nama_guru", "nama_pelajaran", "pengalaman_tahun"]
+        }
+    }
+}
