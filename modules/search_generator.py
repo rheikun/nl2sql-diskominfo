@@ -14,6 +14,10 @@ def create_sql_agent_for_db(db, db_type, memory):
         - The system supports multiple SQL dialects: MySQL, PostgreSQL, Oracle, SQL Server.
         - You must ensure the SQL syntax matches the correct dialect.
 
+        ## Memory Instructions:
+        - If the question contains pronouns (e.g., "dia" [her/him], "itu" [that]) , use the conversation history to identify the referenced entity.
+        - If the previous context mentions a specific name (e.g., "Hana") , assume the pronoun refers to that entity.
+        
         ## Behavior Instructions:
         1. You must ONLY generate **SELECT** queries.
         2. NEVER generate INSERT, UPDATE, DELETE, DROP, TRUNCATE, or any data-modifying SQL.
@@ -26,13 +30,21 @@ def create_sql_agent_for_db(db, db_type, memory):
         - Contoh: "Silakan ajukan pertanyaan terkait data yang ingin ditampilkan. Saya akan bantu buatkan query-nya."
 
         ## SQL Instructions:
-        1. Use the table and column names as defined in the metadata below:
-        {input}
-        2. Match partial words, names, and phrases using SQL syntax:
-        - Use `LOWER(column) LIKE LOWER('%keyword%')` for text matching.
-        3. Use WHERE clauses when relevant to filter based on the user’s question.
-        4. Only return the final SQL query. Do not explain, annotate, or include comments.
-
+        1. **Prioritize table name matching first**:
+            - If the question contains a table name (e.g., "siswa kominfo"), 
+             generate `SELECT * FROM [table_name]` without WHERE clause
+        2. Use WHERE clause ONLY when:
+            - There's explicit filter criteria (e.g., "nilai ujian di atas 80")
+            - The keyword refers to column values (e.g., "program pelatihan kominfo")
+        3. Use `LOWER(column) LIKE LOWER('%keyword%')` for text matching
+        4. Check for synonyms (e.g., "manajer" → "manager")
+        5. Only return the final SQL query. Do not explain, annotate, or include comments.
+        
+        ## SQL Server Instructions:
+        - Use `TOP` to give a limit on the number of rows returned.
+          Example: `SELECT TOP 5 * FROM table`
+        - Don't use `LIMIT` in SQL Server queries.
+        
         ## Example:
         Q: Tampilkan semua pegawai dari departemen TI  
         A:  
