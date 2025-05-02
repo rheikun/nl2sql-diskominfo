@@ -11,7 +11,7 @@ class ModelLLM(Ollama):
     """
     Custom LLM class untuk memanggil API Ollama, dengan support system prompt.
     """
-    model: str = "Llama3.2"
+    model: str = "gemma3"
     base_url: str = "http://localhost:11434"
     temperature: float = Field(default=0.1, ge=0.0, le=1.0)
     max_tokens: int = Field(default=1024, gt=0)
