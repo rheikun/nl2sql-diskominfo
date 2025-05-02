@@ -1,9 +1,10 @@
 from modules.db_loader import load_database_metadata
-from modules.db_utils import detect_relevant_databases, get_db_connection
+from modules.db_utils import detect_relevant_databases, get_db_connection, is_ambiguous
 from modules.search_generator import create_sql_agent_for_db
 from modules.query_executor import run_with_error_tracking
 from modules.answer_generator import create_answer_generator
 from langchain.memory import ConversationBufferMemory
+
 
 def start_chat_session():
     database_metadata = load_database_metadata()
@@ -11,11 +12,16 @@ def start_chat_session():
     answer_generator = create_answer_generator(memory)
 
     print("=== NL2SQL Multi-DB Chatbot Siap ===")
+    
     while True:
         try:
             query = input("User > ")
             if query.lower() in ["exit", "quit"]:
                 break
+
+            if is_ambiguous(query):
+                print("Agent > Pertanyaan Anda kurang lengkap. Bisa dijelaskan lebih spesifik?")
+                continue
 
             chat_history = memory.load_memory_variables({}).get("chat_history", [])
             context_words = set()
