@@ -55,11 +55,12 @@ def adjust_sql_syntax(sql_query, db_type):
             base_query = sql_query.split("LIMIT")[0].strip()
             sql_query = f"SELECT * FROM ({base_query}) WHERE ROWNUM <= {limit}"
     elif db_type == "sqlserver":
+        sql_query = sql_query.rstrip(";")
         if "LIMIT" in sql_query.upper():
-            limit = int(sql_query.split("LIMIT")[1].strip())
-            base_query = sql_query.split("LIMIT")[0].strip()
-            select_clause = base_query.split("SELECT")[1].strip()
-            sql_query = f"SELECT TOP {limit} {select_clause}"
+            parts = sql_query.upper().split("LIMIT")
+            limit_value = parts[1].strip()
+            base_query = parts[0].replace("SELECT", "SELECT TOP " + limit_value, 1)
+            return base_query
     return sql_query
 
 def validate_sql_query(sql_query, db_type):
@@ -67,3 +68,7 @@ def validate_sql_query(sql_query, db_type):
         if "LIMIT" in sql_query.upper():
             raise ValueError(f"Sintaks 'LIMIT' tidak didukung di {db_type}.")
     return sql_query
+
+def is_ambiguous(query: str) -> bool:
+    ambiguous_patterns = ["yang lainnya", "gimana", "bagaimana", "lanjut", "terus", "itu aja", "dan?", "iya"]
+    return any(phrase in query.lower() for phrase in ambiguous_patterns)
