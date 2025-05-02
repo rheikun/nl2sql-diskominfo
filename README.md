@@ -9,3 +9,7 @@ This project bridges the gap between non-technical users and complex database qu
 - **Local Language Support**: Understands questions in both standard Indonesian and local Sleman dialects.
 - **LLM-Powered SQL Generation**: Uses large language models (LLMs) to translate natural language into accurate SQL queries.
 - **Flexible Configuration**: Easily customize the app via JSON files for database metadata and model settings.
+
+## License
+This project is licensed under the [Apache License 2.0](LICENSE).  
+The Gemma model used is subject to the [Google AI License](https://ai.google.dev/gemma/terms).
