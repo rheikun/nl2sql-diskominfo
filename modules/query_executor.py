@@ -39,11 +39,11 @@ def run_with_error_tracking(agent_executor, query, table_metadata, db_type, max_
             # Hapus quote jika ada
             if raw_output.startswith(("'", '"')) and raw_output.endswith(("'", '"')):
                 raw_output = raw_output[1:-1]
-
-
-            validated_query = validate_sql_query(raw_output, db_type=db_type)
-            adjusted_sql_query = adjust_sql_syntax(validated_query, db_type=db_type)
-            return adjusted_sql_query
+                
+            adjusted_sql_query = adjust_sql_syntax(raw_output, db_type=db_type)
+            validated_query = validate_sql_query(adjusted_sql_query, db_type=db_type)
+            
+            return validated_query
 
         except Exception as e:
             print(f"[ERROR] Attempt {attempt_count+1}: {e}")
