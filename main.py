@@ -1,9 +1,9 @@
 import streamlit as st
 from modules.db_loader import load_database_metadata
 from modules.db_utils import detect_relevant_databases, get_db_connection
-from modules.search_generator import create_sql_agent_for_db
+from template.search_generator import create_sql_agent_for_db
 from modules.query_executor import run_with_error_tracking
-from modules.answer_generator import create_answer_generator
+from template.answer_generator import create_answer_generator
 from langchain.memory import ConversationBufferMemory
 
 # Inisialisasi session
