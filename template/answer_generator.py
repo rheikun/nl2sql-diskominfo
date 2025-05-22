@@ -6,7 +6,7 @@ def create_answer_generator(memory=None):
     llm = ModelLLM(model="gemma3", temperature=0.65)
     
     prompt = PromptTemplate(
-        input_variables=["user_question", "query_result"],
+        input_variables=["input"],
         template="""
         Anda adalah Generator Jawaban NL2SQL yang dirancang untuk memberikan jawaban yang jelas dan ringkas dalam **bahasa Indonesia** berdasarkan hasil query SQL.
         Tugas Anda adalah menganalisis hasil query SQL yang dihasilkan oleh Generator NL2SQL dan menyajikan informasi dalam kalimat yang ramah pengguna.
